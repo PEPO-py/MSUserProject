@@ -57,29 +57,56 @@ public class RoleService {
         }
     }
 
+//    @Transactional
+//    public RoleEntity updateAttribute(Long id,
+//                                      Optional<Boolean> name,
+//                                      Optional<Boolean> description,
+//                                      Optional<Boolean> roleCode,
+//                                      @Valid RoleEntity new_role,
+//                                      BindingResult result)
+//    {
+//        RoleEntity role = roleRepository.getRoleById(id).orElseThrow(() -> new NotFoundException("Role not found with this id (%d)" .formatted(id)));
+//        if(!name.isEmpty() && name.get()) {
+//            if (result.getFieldErrors("name").size() > 0) throw new DataValidationException(HandelValidationError.getErrorsOfField(result, "name"));
+//            else role.setName(new_role.getName());
+//        }
+//        if (!description.isEmpty() && description.get()) {
+//            if (result.getFieldErrors("description").size() > 0) throw new DataValidationException(HandelValidationError.getErrorsOfField(result, "description"));
+//            else role.setDescription(new_role.getDescription());
+//        }
+//        if (!roleCode.isEmpty() && roleCode.get()) {
+//            if (result.getFieldErrors("roleCode").size() > 0) throw new DataValidationException(HandelValidationError.getErrorsOfField(result, "roleCode"));
+//            else role.setRoleCode(new_role.getRoleCode());
+//        }
+//
+//        if(name.isEmpty() && description.isEmpty() && roleCode.isEmpty()) throw new DataValidationException("You should filter what attributes you wanna update");
+//        else {
+//            return roleRepository.save(role);
+//        }
+//
+//
+//    }
+
     @Transactional
     public RoleEntity updateAttribute(Long id,
-                                      Optional<Boolean> name,
-                                      Optional<Boolean> description,
-                                      Optional<Boolean> roleCode,
                                       @Valid RoleEntity new_role,
                                       BindingResult result)
     {
         RoleEntity role = roleRepository.getRoleById(id).orElseThrow(() -> new NotFoundException("Role not found with this id (%d)" .formatted(id)));
-        if(!name.isEmpty() && name.get()) {
+        if(new_role.getName() != null) {
             if (result.getFieldErrors("name").size() > 0) throw new DataValidationException(HandelValidationError.getErrorsOfField(result, "name"));
             else role.setName(new_role.getName());
         }
-        if (!description.isEmpty() && description.get()) {
+        if (new_role.getDescription() != null) {
             if (result.getFieldErrors("description").size() > 0) throw new DataValidationException(HandelValidationError.getErrorsOfField(result, "description"));
             else role.setDescription(new_role.getDescription());
         }
-        if (!roleCode.isEmpty() && roleCode.get()) {
+        if (!Optional.of(new_role.getRoleCode()).isEmpty()) {
             if (result.getFieldErrors("roleCode").size() > 0) throw new DataValidationException(HandelValidationError.getErrorsOfField(result, "roleCode"));
             else role.setRoleCode(new_role.getRoleCode());
         }
 
-        if(name.isEmpty() && description.isEmpty() && roleCode.isEmpty()) throw new DataValidationException("You should filter what attributes you wanna update");
+        if(new_role.getDescription() == null && new_role.getDescription() == null && Optional.of(new_role.getRoleCode()).isEmpty()) throw new DataValidationException("You should filter what attributes you wanna update");
         else {
             return roleRepository.save(role);
         }
