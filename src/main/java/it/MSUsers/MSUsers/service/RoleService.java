@@ -1,9 +1,11 @@
 package it.MSUsers.MSUsers.service;
 
 import it.MSUsers.MSUsers.entity.RoleEntity;
+import it.MSUsers.MSUsers.exception.DataValidationException;
 import it.MSUsers.MSUsers.exception.NotFoundException;
 import it.MSUsers.MSUsers.repository.RoleRepository;
 import it.MSUsers.MSUsers.utils.HandelValidationError;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoleService {
@@ -30,21 +33,16 @@ public class RoleService {
         } else return allRoles;
     }
 
+    @Transactional(readOnly = true)
+    public RoleEntity getRole(long id) {
+        return roleRepository.getRoleById(id).orElseThrow(() -> new NotFoundException("Role not found with id (%d)".formatted(id)));
+    }
+
     @Transactional
     public RoleEntity createRole(@Valid RoleEntity role, BindingResult result) {
         if (result.hasErrors()) {
-            throw new ValidationException(HandelValidationError.getAllErrors(result));
-        } else {
-            // Check the role code
-            if (role.getRoleCode() != 3 && role.getRoleCode() != 5 && role.getRoleCode() != 7) {
-                throw new ValidationException("Invalid data entry (%d)\n" +
-                        "*****************\n" +
-                        "il codice del ruolo deve essere uno di questi valori (3, 5, 7)\n".formatted(role.getRoleCode()));
-            } else {
-                return roleRepository.save(role);
-
-            }
-        }
+            throw new DataValidationException(HandelValidationError.getAllErrors(result));
+        } else  return roleRepository.save(role);
     }
 
 }

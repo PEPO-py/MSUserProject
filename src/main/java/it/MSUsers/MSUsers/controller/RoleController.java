@@ -10,9 +10,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/V1/roles/")
+@RequestMapping("/api/V1/roles")
 public class RoleController {
 
     @Autowired
@@ -23,9 +24,15 @@ public class RoleController {
         return ResponseEntity.status(HttpStatus.OK).body(roleService.getAllRoles());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<RoleEntity> getRole(@PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(roleService.getRole(id));
+    }
+
     @PostMapping
-    public ResponseEntity<RoleEntity> createRole(@Valid @RequestBody RoleEntity role, BindingResult result) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(roleService.createRole(role, result));
+    public ResponseEntity<RoleEntity> createNewRole(@Valid @RequestBody RoleEntity role, BindingResult result) {
+        //return ResponseEntity.status(HttpStatus.CREATED).body(roleService.createRole(role, result));
+        return new ResponseEntity<>(roleService.createRole(role, result), HttpStatus.CREATED);
     }
 
 }

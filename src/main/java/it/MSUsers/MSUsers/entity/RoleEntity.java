@@ -1,5 +1,6 @@
 package it.MSUsers.MSUsers.entity;
 
+import it.MSUsers.MSUsers.validator.ValidateRoleCode;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,5 +32,7 @@ public class RoleEntity {
 
     @NotNull(message = "Questo campo (%s) non accetta una valore null")
     @Positive(message = "Questo campo (%s) accetta numeri")
+    @ValidateRoleCode(message = "Questo comapo deve contenere solo questi valori (3,5,7)", acceptedValue = {3,5,7})
+    @Column(nullable = false)
     private int roleCode;
 }
