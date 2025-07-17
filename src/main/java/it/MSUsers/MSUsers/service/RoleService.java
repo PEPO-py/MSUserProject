@@ -29,7 +29,7 @@ public class RoleService {
         // This will return a list of roles db objects
         List<RoleEntity> allRoles = roleRepository.findAll();
         if(allRoles.isEmpty()) {
-            throw new NotFoundException("Ruoli non trovati");
+            throw new NotFoundException("Roles not found");
         } else return allRoles;
     }
 

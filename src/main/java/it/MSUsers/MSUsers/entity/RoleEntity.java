@@ -18,21 +18,21 @@ public class RoleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Questo campo (%s) non può essere una stringa vuota")
-    @NotNull(message = "Questo campo (%s) non accetta una valore null")
-    @Size(message = "Questo campo non può contenere meno di 3 e più di 128 caratteri", min = 3, max = 128)
+    @NotBlank(message = "This field (%s) cannot be an empty string")
+    @NotNull(message = "This field (%s) does not accept a null value")
+    @Size(message = "This field cannot contain less than 3 or more than 128 characters", min = 3, max = 128)
     @Column(nullable = false)
     private String name;
 
-    @NotBlank(message = "Questo campo (%s) non può essere una stringa vuota")
-    @NotNull(message = "Questo campo (%s) non accetta una valore null")
-    @Size(message = "Questo campo non può avere più di 5000 e meno di 10 caratteri", min = 10, max = 5000)
+    @NotBlank(message = "This field (%s) cannot be an empty string")
+    @NotNull(message = "This field (%s) does not accept a null value")
+    @Size(message = "This field cannot contain less than 10 or more than 5000 characters", min = 10, max = 5000)
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @NotNull(message = "Questo campo (%s) non accetta una valore null")
-    @Positive(message = "Questo campo (%s) accetta numeri")
-    @ValidateRoleCode(message = "Questo comapo deve contenere solo questi valori (3,5,7)", acceptedValue = {3,5,7})
+    @NotNull(message = "This field (%s) does not accept a null value")
+    @Positive(message = "Thies field (%s) accepts numbers")
+    @ValidateRoleCode(message = "Thies field must contain these values (3,5,7)", acceptedValue = {3,5,7})
     @Column(nullable = false)
     private int roleCode;
 }
