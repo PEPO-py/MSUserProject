@@ -35,4 +35,18 @@ public class RoleController {
         return new ResponseEntity<>(roleService.createRole(role, result), HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<RoleEntity> changeRole(@PathVariable long id, @Valid @RequestBody RoleEntity new_role, BindingResult result) {
+        return ResponseEntity.status(HttpStatus.OK).body(roleService.changeRole(id, new_role, result));
+    }
+
+    @PatchMapping("/{id}/")
+    public ResponseEntity<RoleEntity> updateAttribute(@PathVariable long id,
+                                                      @RequestParam(required = false) Optional<Boolean> name,
+                                                      @RequestParam(required = false) Optional<Boolean> description,
+                                                      @RequestParam(required = false) Optional<Boolean> roleCode,
+                                                      @Valid @RequestBody RoleEntity new_role, BindingResult result) {
+        return ResponseEntity.status(HttpStatus.OK).body(roleService.updateAttribute(id, name, description, roleCode, new_role, result));
+    }
+
 }
