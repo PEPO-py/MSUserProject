@@ -7,10 +7,10 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Table(name="db_role_entity")
 public class RoleEntity {
     @Id
@@ -29,9 +29,7 @@ public class RoleEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @NotBlank(message = "Questo campo (%s) non può essere una stringa vuota")
     @NotNull(message = "Questo campo (%s) non accetta una valore null")
     @Positive(message = "Questo campo (%s) accetta numeri")
-    @Column(columnDefinition = "INT CHECK (roleCode IN (3, 5, 7))")
     private int roleCode;
 }

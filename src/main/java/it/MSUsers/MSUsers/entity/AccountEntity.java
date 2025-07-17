@@ -7,12 +7,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.lang.annotation.Documented;
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Table(name="db_account_entity")
 public class AccountEntity {
     @Id

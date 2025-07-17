@@ -7,15 +7,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDate;
-import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+import java.util.Set;
+
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Table(name="db_users_entity")
 public class UserEntity {
     @Id
@@ -47,11 +47,11 @@ public class UserEntity {
     private boolean flagDelete;
 
     @ManyToMany
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id")
+    @JoinTable(name = "db_user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<RoleEntity> userRole;
+    private Set<RoleEntity> userRole;
 
 
 }
