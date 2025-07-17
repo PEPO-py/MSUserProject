@@ -22,23 +22,23 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Questo campo (%s) non può essere una stringa vuota")
-    @NotNull(message = "Questo campo (%s) non accetta una valore null")
-    @Size(message = "Questo campo non può contenere meno di 3 e più di 128 caratteri", min = 3, max = 128)
+    @NotBlank(message = "This field (%s) cannot contain an empty string")
+    @NotNull(message = "This field (%s) does not accept a null value")
+    @Size(message = "This field cannot contain less than 3 or more than 128 characters", min = 3, max = 128)
     @Column(nullable = false)
     private String firstName;
 
-    @NotBlank(message = "Questo campo (%s) non può essere una stringa vuota")
-    @NotNull(message = "Questo campo (%s) non accetta una valore null")
-    @Size(message = "Questo campo non può contenere meno di 3 e più di 128 caratteri", min = 3, max = 128)
+    @NotBlank(message = "This field (%s) cannot be an empty string")
+    @NotNull(message = "This field (%s) does not accept a null value")
+    @Size(message = "This field cannot contain less than 3 or more than 128 characters", min = 3, max = 128)
     @Column(nullable = false)
     private String lastName;
 
-    @NotBlank(message = "Questo campo (%s) non può essere una stringa vuota")
-    @NotNull(message = "Questo campo (%s) non accetta una valore null")
+    @NotBlank(message = "This field (%s) cannot be an empty string")
+    @NotNull(message = "This field (%s) does not accept a null value")
     @JsonFormat(pattern = "yyyy-mm-dd")
-    @ValidateDateRange(message = "Data non valida perchè supera i range preimpostati dal sistema\n" +
-            "Inserisci una data valida ",
+    @ValidateDateRange(message = "Date is invalid because it's over system default range\n" +
+            "Insert a valid date ",
             min_year_num =  18,
             max_year_num = 100)
     private LocalDate birthDate;

@@ -17,22 +17,22 @@ public class AccountEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Questo campo (%s) non può essere una stringa vuota")
-    @NotNull(message = "Questo campo (%s) non accetta una valore null")
-    @Size(message = "Questo campo non può contenere meno di 3 e più di 64 caratteri", min = 3, max = 64)
+    @NotBlank(message = "This field (%s) cannot be an empty string")
+    @NotNull(message = "This field (%s) does not accept a null value")
+    @Size(message = "This field cannot contain less than 3 or more than 64 characters", min = 3, max = 64)
     @Column(nullable = false, length = 64, unique = true)
     private String username;
 
-    @NotBlank(message = "Questo campo (%s) non può essere una stringa vuota")
-    @NotNull(message = "Questo campo (%s) non accetta una valore null")
-    @Size(message = "Questo campo non può contenere meno di 3 e più di 64 caratteri", min = 3, max = 64)
-    @Email(message = "Email non valida")
+    @NotBlank(message = "This field (%s) cannot be an empty string")
+    @NotNull(message = "This field (%s) does not accept a null value")
+    @Size(message = "This field cannot contain less than 3 or more than 64 characters", min = 3, max = 64)
+    @Email(message = "Invalid Email")
     @Column(nullable = false, length = 64, unique = true)
     private String email;
 
-    @NotBlank(message = "Questo campo (%s) non può essere una stringa vuota")
-    @NotNull(message = "Questo campo (%s) non accetta una valore null")
-    @Size(message = "Questo campo non può contenere meno di 8 e più di 64 caratteri", min = 8, max = 64)
+    @NotBlank(message = "This field (%s) cannot contain an empty string")
+    @NotNull(message = "This field (%s) does not accept a null value")
+    @Size(message = "This value cannot contain less than 8 or more than 64 characters", min = 8, max = 64)
     @Column(nullable = false, length = 64)
     private String password;
 
