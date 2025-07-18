@@ -36,7 +36,7 @@ public class AccountEntity {
     @Column(nullable = false, length = 64)
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user", referencedColumnName = "id")
     private UserEntity user;
 
