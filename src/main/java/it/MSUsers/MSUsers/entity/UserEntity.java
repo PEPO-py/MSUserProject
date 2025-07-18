@@ -34,7 +34,6 @@ public class UserEntity {
     @Column(nullable = false)
     private String lastName;
 
-    @NotBlank(message = "This field (%s) cannot be an empty string")
     @NotNull(message = "This field (%s) does not accept a null value")
     @JsonFormat(pattern = "yyyy-mm-dd")
     @ValidateDateRange(message = "Date is invalid because it's over system default range\n" +

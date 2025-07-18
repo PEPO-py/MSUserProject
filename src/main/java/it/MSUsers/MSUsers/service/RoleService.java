@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class RoleService {
@@ -113,6 +114,11 @@ public class RoleService {
         }
 
 
+    }
+
+    @Transactional
+    public Set<RoleEntity> findRoleSet(long id) {
+        return roleRepository.findRoleSetById(id);
     }
 
 }
