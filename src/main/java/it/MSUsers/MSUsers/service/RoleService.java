@@ -92,6 +92,7 @@ public class RoleService {
                                       @Valid RoleEntity new_role,
                                       BindingResult result)
     {
+        System.out.println(new_role.toString());
         RoleEntity role = roleRepository.getRoleById(id).orElseThrow(() -> new NotFoundException("Role not found with this id (%d)" .formatted(id)));
         if(new_role.getName() != null) {
             if (result.getFieldErrors("name").size() > 0) throw new DataValidationException(HandelValidationError.getErrorsOfField(result, "name"));
@@ -101,12 +102,12 @@ public class RoleService {
             if (result.getFieldErrors("description").size() > 0) throw new DataValidationException(HandelValidationError.getErrorsOfField(result, "description"));
             else role.setDescription(new_role.getDescription());
         }
-        if (!Optional.of(new_role.getRoleCode()).isEmpty()) {
+        if (new_role.getRoleCode() != 0) {
             if (result.getFieldErrors("roleCode").size() > 0) throw new DataValidationException(HandelValidationError.getErrorsOfField(result, "roleCode"));
             else role.setRoleCode(new_role.getRoleCode());
         }
 
-        if(new_role.getDescription() == null && new_role.getDescription() == null && Optional.of(new_role.getRoleCode()).isEmpty()) throw new DataValidationException("You should filter what attributes you wanna update");
+        if(new_role.getDescription() == null && new_role.getDescription() == null && new_role.getRoleCode() == 0) throw new DataValidationException("You cannot update with empty json");
         else {
             return roleRepository.save(role);
         }
