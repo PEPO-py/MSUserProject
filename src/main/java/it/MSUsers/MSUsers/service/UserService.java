@@ -9,8 +9,7 @@ import it.MSUsers.MSUsers.repository.UserRepository;
 import it.MSUsers.MSUsers.utils.HandelValidationError;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.slf4j.Log4jLogger;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +20,10 @@ import org.springframework.validation.BindingResult;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
+
 
 @Service
+@Log4j2
 public class UserService {
 
     @Autowired
@@ -57,7 +57,6 @@ public class UserService {
             throw new DataValidationException(HandelValidationError.getAllErrors(result));
         } else {
             // create first the user
-            System.out.println("Object is valid and ready to be saved");
             UserEntity new_user = new UserEntity();
             new_user.setFirstName(new_user_account.getFirstName());
             new_user.setLastName(new_user_account.getLastName());
@@ -67,7 +66,6 @@ public class UserService {
             // save the new user
             try {
                 UserEntity createdUser = userRepository.save(new_user);
-                System.out.println("User created");
                 AccountEntity new_account = new AccountEntity();
                 // Check if the username and email is not repeated
                 if (!accountService.getAccountUsername(new_user_account.getUsername()).isEmpty()) {
@@ -80,7 +78,6 @@ public class UserService {
                     new_account.setPassword(new_user_account.getPassword());
                     new_account.setUser(createdUser);
                     accountService.createAccountFromUser(new_account);
-                    System.out.println("Account created");
                 }
                 return true;
             } catch (Exception e) {
