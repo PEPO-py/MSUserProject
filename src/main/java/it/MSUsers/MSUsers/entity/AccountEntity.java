@@ -1,11 +1,15 @@
 package it.MSUsers.MSUsers.entity;
 
+import io.swagger.v3.core.util.Json;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.json.simple.JSONObject;
+
+import java.util.Map;
 
 @Entity
 @NoArgsConstructor
@@ -39,5 +43,13 @@ public class AccountEntity {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user", referencedColumnName = "id")
     private UserEntity user;
+
+    @Column(columnDefinition = "BOOLEAN DEFAULT false")
+    private Boolean accountLoginCurrentStatus;
+
+    @Column(columnDefinition = "JSON", nullable = true)
+    private String logInDetails;
+
+
 
 }

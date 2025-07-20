@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/V1/roles")
+@RequestMapping("/api/V1/public/roles")
 public class RoleController {
 
     @Autowired
