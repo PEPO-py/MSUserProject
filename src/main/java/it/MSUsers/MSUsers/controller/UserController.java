@@ -3,6 +3,7 @@ package it.MSUsers.MSUsers.controller;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.swagger.v3.core.util.Json;
 import it.MSUsers.MSUsers.DAO.UserRegisterDAO;
+import it.MSUsers.MSUsers.dto.StudenteCorsiDTO;
 import it.MSUsers.MSUsers.entity.UserEntity;
 import it.MSUsers.MSUsers.exception.DataValidationException;
 import it.MSUsers.MSUsers.service.UserService;
@@ -31,6 +32,11 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserEntity> getUser(@PathVariable long id) {
         return new ResponseEntity<>(userService.getUserUsingId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/studente/{studente_id}")
+    public ResponseEntity<StudenteCorsiDTO> getCorsiOfStudenti (@PathVariable long studente_id) {
+        return new ResponseEntity<>(userService.getCorsiOfStudenti(studente_id), HttpStatus.OK);
     }
 
     @PostMapping("")

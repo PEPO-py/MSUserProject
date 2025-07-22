@@ -1,6 +1,7 @@
 package it.MSUsers.MSUsers.service;
 
 import it.MSUsers.MSUsers.DAO.UserRegisterDAO;
+import it.MSUsers.MSUsers.dto.StudenteCorsiDTO;
 import it.MSUsers.MSUsers.entity.AccountEntity;
 import it.MSUsers.MSUsers.entity.UserEntity;
 import it.MSUsers.MSUsers.exception.DataValidationException;
@@ -11,11 +12,14 @@ import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -34,6 +38,15 @@ public class UserService {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private final RestTemplate restTemplate;
+    private final String apiBaseUrl;
+
+    public UserService(RestTemplateBuilder builder, @Value("${msitsa.api.url}") String apiUrl) {
+        this.restTemplate = builder.build();
+        this.apiBaseUrl = apiUrl;
+    }
 
 
     @Transactional(readOnly = true)
@@ -85,6 +98,12 @@ public class UserService {
             }
 
         }
+    }
+
+    @Transactional
+    public StudenteCorsiDTO getCorsiOfStudenti(long studente_id) {
+        String url = this.apiBaseUrl + "/studente/" + studente_id;
+        return restTemplate.getForObject(url, StudenteCorsiDTO.class);
     }
 
 

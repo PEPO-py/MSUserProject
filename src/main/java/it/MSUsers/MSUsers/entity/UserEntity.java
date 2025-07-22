@@ -1,6 +1,7 @@
 package it.MSUsers.MSUsers.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.MSUsers.MSUsers.validator.ValidateDateRange;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -10,6 +11,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,9 +36,11 @@ public class UserEntity {
     @Column(nullable = false)
     private String lastName;
 
+    @JsonIgnore
     @NotNull(message = "This field (%s) does not accept a null value")
     private LocalDate birthDate;
 
+    @JsonIgnore
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean flagDelete;
 
